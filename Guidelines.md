@@ -1,29 +1,23 @@
-# Microsoft REST API Guidelines
+# Sonae MC REST API Guidelines
 
-## Microsoft REST API Guidelines Working Group
+## Sonae MC REST API Guidelines Working Group
 
 Name | Name | Name |
 ---------------------------- | -------------------------------------- | ----------------------------------------
-Dave Campbell (CTO C+E)      | Rick Rashid (CTO ASG)                  | John Shewchuk (Technical Fellow, TED HQ)
-Mark Russinovich (CTO Azure) | Steve Lucco (Technical Fellow, DevDiv) | Murali Krishnaprasad (Azure App Plat)
-Rob Howard (ASG)             | Peter Torr  (OSG)                      | Chris Mullins (ASG)
+Luís Pinto (Architecture - Area Manager)      | Ernesto Costa (Architecture - IT Architect)                  | Flavio (Deliver - Tech Lead)
 
-<div style="font-size:150%">
-Document editors: John Gossman (C+E), Chris Mullins (ASG), Gareth Jones (ASG), Rob Dolin (C+E), Mark Stafford (C+E)<br/>
-</div>
-
-# Microsoft REST API Guidelines
+# Sonae MC REST API Guidelines
 
 ## 1. Abstract
-The Microsoft REST API Guidelines, as a design principle, encourages application developers to have resources accessible to them via a RESTful HTTP interface.
-To provide the smoothest possible experience for developers on platforms following the Microsoft REST API Guidelines, REST APIs SHOULD follow consistent design guidelines to make using them easy and intuitive.
+The Sonae MC REST API Guidelines, as a design principle, encourages application developers to have resources accessible to them via a RESTful HTTP interface.
+To provide the smoothest possible experience for developers on platforms following the Sonae MC REST API Guidelines, REST APIs SHOULD follow consistent design guidelines to make using them easy and intuitive.
 
-This document establishes the guidelines Microsoft REST APIs SHOULD follow so RESTful interfaces are developed consistently.
+This document establishes the guidelines Sonae MC REST APIs SHOULD follow so RESTful interfaces are developed consistently.
 
 ## 2. Table of contents
 <!-- TOC depthFrom:2 depthTo:4 orderedList:false updateOnSave:false withLinks:true -->
 
-- [Microsoft REST API Guidelines Working Group](#microsoft-rest-api-guidelines-working-group)
+- [Sonae MC REST API Guidelines Working Group](#sonaemc-rest-api-guidelines-working-group)
 - [1. Abstract](#1-abstract)
 - [2. Table of contents](#2-table-of-contents)
 - [3. Introduction](#3-introduction)
@@ -168,22 +162,21 @@ This document establishes the guidelines Microsoft REST APIs SHOULD follow so RE
 <!-- /TOC -->
 
 ## 3. Introduction
-Developers access most Microsoft Cloud Platform resources via HTTP interfaces.
-Although each service typically provides language-specific frameworks to wrap their APIs, all of their operations eventually boil down to HTTP requests.
-Microsoft must support a wide range of clients and services and cannot rely on rich frameworks being available for every development environment.
-Thus, a goal of these guidelines is to ensure Microsoft REST APIs can be easily and consistently consumed by any client with basic HTTP support.
+Developers access most Sonae MC Platform resources via HTTP interfaces.
+Sonae MC must support a wide range of clients and services and cannot rely on rich frameworks being available for every development environment.
+Thus, a goal of these guidelines is to ensure Sonae MC REST APIs can be easily and consistently consumed by any client with basic HTTP support.
 
 To provide the smoothest possible experience for developers, it's important to have these APIs follow consistent design guidelines, thus making using them easy and intuitive.
-This document establishes the guidelines to be followed by Microsoft REST API developers for developing such APIs consistently.
+This document establishes the guidelines to be followed by Sonae MC REST API developers for developing such APIs consistently.
 
 The benefits of consistency accrue in aggregate as well; consistency allows teams to leverage common code, patterns, documentation and design decisions.
 
 These guidelines aim to achieve the following:
-- Define consistent practices and patterns for all API endpoints across Microsoft.
+- Define consistent practices and patterns for all API endpoints across Sonae MC.
 - Adhere as closely as possible to accepted REST/HTTP best practices in the industry at-large. [\*]
-- Make accessing Microsoft Services via REST interfaces easy for all application developers.
+- Make accessing Sonae MC Services via REST interfaces easy for all application developers.
 - Allow service developers to leverage the prior work of other services to implement, test and document REST endpoints defined consistently.
-- Allow for partners (e.g., non-Microsoft entities) to use these guidelines for their own REST endpoint design.
+- Allow for partners (e.g., non-Sonae MC entities) to use these guidelines for their own REST endpoint design.
 
 [\*] Note: The guidelines are designed to align with building services which comply with the REST architectural style, though they do not address or require building services that follow the REST constraints.
 The term "REST" is used throughout this document to mean services that are in the spirit of REST rather than adhering to REST by the book.*
@@ -202,9 +195,9 @@ If you are new to RESTful design, here are some good resources:
 
 ## 4. Interpreting the guidelines
 ### 4.1. Application of the guidelines
-These guidelines are applicable to any REST API exposed publicly by Microsoft or any partner service.
-Private or internal APIs SHOULD also try to follow these guidelines because internal services tend to eventually be exposed publicly.
- Consistency is valuable to not only external customers but also internal service consumers, and these guidelines offer best practices useful for any service.
+These guidelines are applicable to any REST API exposed internally or publicly by Sonae MC or any partner service.
+Private (system) APIs SHOULD also try to follow these guidelines because private services tend to eventually be exposed internally or publicly.
+Consistency is valuable to not only external customers but also internal service consumers, and these guidelines offer best practices useful for any service.
 
 There are legitimate reasons for exemption from these guidelines.
 Obviously, a REST service that implements or must interoperate with some externally defined REST API must be compatible with that API and not necessarily these guidelines.
@@ -219,13 +212,8 @@ So if a service was written against version 1.0 of the guidelines, new APIs adde
 ### 4.3. Requirements language
 The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119][rfc-2119].
 
-### 4.4. License
-
-This work is licensed under the Creative Commons Attribution 4.0 International License.
-To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
-
 ## 5. Taxonomy
-As part of onboarding to Microsoft REST API Guidelines, services MUST comply with the taxonomy defined below.
+As part of onboarding to Sonae MC REST API Guidelines, services MUST comply with the taxonomy defined below.
 
 ### 5.1. Errors
 Errors, or more specifically Service Errors, are defined as a client passing invalid data to the service and the service _correctly_  rejecting that data.
@@ -268,7 +256,7 @@ Services that do so MUST make this clear in their documentation and clients MUST
 Clients MUST NOT rely on the order in which data appears in JSON service responses.
 For example, clients SHOULD be resilient to the reordering of fields within a JSON object.
 When supported by the service, clients MAY request that data be returned in a specific order.
-For example, services MAY support the use of the _$orderBy_ querystring parameter to specify the order of elements within a JSON array.
+For example, services MAY support the use of the _$order-by_ querystring parameter to specify the order of elements within a JSON array.
 Services MAY also explicitly specify the ordering of some elements as part of the service contract.
 For example, a service MAY always return a JSON object's "type" information as the first field in an object to simplify response parsing on the client.
 Clients MAY rely on ordering behavior explicitly identified by the service.
@@ -285,13 +273,13 @@ This facilitates discovery and eases adoption on platforms without a well-suppor
 An example of a well-structured URL is:
 
 ```
-https://api.contoso.com/v1.0/people/jdoe@contoso.com/inbox
+https://api.sonaemc.com/v1.0/people/jdoe@sonaemc.com/inbox
 ```
 
 An example URL that is not friendly is:
 
 ```
-https://api.contoso.com/EWS/OData/Users('jdoe@microsoft.com')/Folders('AAMkADdiYzI1MjUzLTk4MjQtNDQ1Yy05YjJkLWNlMzMzYmIzNTY0MwAuAAAAAACzMsPHYH6HQoSwfdpDx-2bAQCXhUk6PC1dS7AERFluCgBfAAABo58UAAA=')
+https://api.sonaemc.com/EWS/OData/Users('jdoe@sonaemc.com')/Folders('AAMkADdiYzI1MjUzLTk4MjQtNDQ1Yy05YjJkLWNlMzMzYmIzNTY0MwAuAAAAAACzMsPHYH6HQoSwfdpDx-2bAQCXhUk6PC1dS7AERFluCgBfAAABo58UAAA=')
 ```
 
 A frequent pattern that comes up is the use of URLs as values.
@@ -299,7 +287,7 @@ Services MAY use URLs as values.
 For example, the following is acceptable:
 
 ```
-https://api.contoso.com/v1.0/items?url=https://resources.contoso.com/shoes/fancy
+https://api.sonaemc.com/v1.0/items?url=https://resources.sonaemc.com/shoes/fancy
 ```
 
 ### 7.2. URL length
@@ -327,7 +315,7 @@ The stable identifier is not required to be a GUID.
 An example of a URL containing a canonical identifier is:
 
 ```
-https://api.contoso.com/v1.0/people/7011042402/inbox
+https://api.sonaemc.com/v1.0/people/7011042402/inbox
 ```
 
 ### 7.4. Supported methods
@@ -356,14 +344,14 @@ POST operations SHOULD support the Location response header to specify the locat
 As an example, imagine a service that allows creation of hosted servers, which will be named by the service:
 
 ```http
-POST http://api.contoso.com/account1/servers
+POST http://api.sonaemc.com/account1/servers
 ```
 
 The response would be something like:
 
 ```http
 201 Created
-Location: http://api.contoso.com/account1/servers/server321
+Location: http://api.sonaemc.com/account1/servers/server321
 ```
 
 Where "server321" is the service-allocated server name.
@@ -399,7 +387,7 @@ Where {help} is the URL to a documentation resource.
 For examples on use of OPTIONS, see [preflighting CORS cross-domain calls][cors-preflight].
 
 ### 7.5. Standard request headers
-The table of request headers below SHOULD be used by Microsoft REST API Guidelines services.
+The table of request headers below SHOULD be used by Sonae MC REST API Guidelines services.
 Using these headers is not mandated, but if used they MUST be used consistently.
 
 All header values MUST follow the syntax rules set forth in the specification where the header field is defined.
@@ -473,7 +461,7 @@ For organizations to have a successful platform, they must serve data in formats
 
 Web-based communication, especially when a mobile or other low-bandwidth client is involved, has moved quickly in the direction of JSON for a variety of reasons, including its tendency to be lighter weight and its ease of consumption with JavaScript-based clients.
 
-JSON property names SHOULD be camelCased.
+JSON property names SHOULD be snake_cased.
 
 Services SHOULD provide JSON as the default encoding.
 
@@ -489,12 +477,12 @@ Accept Header    | Response type                      | Notes
 application/json | Payload SHOULD be returned as JSON | Also accept text/javascript for JSONP cases
 
 ```http
-GET https://api.contoso.com/v1.0/products/user
+GET https://api.sonaemc.com/v1.0/products/user
 Accept: application/json
 ```
 
 #### 7.10.2. Error condition responses
-For non-success conditions, developers SHOULD be able to write one piece of code that handles errors consistently across different Microsoft REST API Guidelines services.
+For non-success conditions, developers SHOULD be able to write one piece of code that handles errors consistently across different Sonae MC REST API Guidelines services.
 This allows building of simple and reliable infrastructure to handle exceptions as a separate flow from successful responses.
 The following is based on the OData v4 JSON spec.
 However, it is very generic and does not require specific OData constructs.
@@ -638,7 +626,7 @@ Services SHOULD be able to be accessed from simple HTTP tools such as curl witho
 Service developer portals SHOULD provide the equivalent of "Get Developer Token" to facilitate experimentation and curl support.
 
 ## 8. CORS
-Services compliant with the Microsoft REST API Guidelines MUST support [CORS (Cross Origin Resource Sharing)][cors].
+Services compliant with the Sonae MC REST API Guidelines MUST support [CORS (Cross Origin Resource Sharing)][cors].
 Services SHOULD support an allowed origin of CORS * and enforce authorization through valid OAuth tokens.
 Services SHOULD NOT support user credentials with origin validation.
 There MAY be exceptions for special cases.
@@ -703,7 +691,7 @@ Collections are located directly under the service root when they are top level,
 For example:
 
 ```http
-GET https://api.contoso.com/v1.0/people
+GET https://api.sonaemc.com/v1.0/people
 ```
 
 Whenever possible, services MUST support the "/" pattern.
@@ -723,7 +711,7 @@ Collection items MAY contain other collections.
 For example, a user collection MAY contain user resources that have multiple addresses:
 
 ```http
-GET https://api.contoso.com/v1.0/people/123/addresses
+GET https://api.sonaemc.com/v1.0/people/123/addresses
 ```
 
 ```json
@@ -763,32 +751,32 @@ This is often the case for insert operations on items with a server-side generat
 For example, the following request:
 
 ```http
-POST https://api.contoso.com/v1.0/people
+POST https://api.sonaemc.com/v1.0/people
 ```
 
 Would lead to a response indicating the location of the new collection item:
 
 ```http
 201 Created
-Location: https://api.contoso.com/v1.0/people/123
+Location: https://api.sonaemc.com/v1.0/people/123
 ```
 
 And once executed again, would likely lead to another resource:
 
 ```http
 201 Created
-Location: https://api.contoso.com/v1.0/people/124
+Location: https://api.sonaemc.com/v1.0/people/124
 ```
 
 While a PUT request would require the indication of the collection item with the corresponding key instead:
 
 ```http
-PUT https://api.contoso.com/v1.0/people/123
+PUT https://api.sonaemc.com/v1.0/people/123
 ```
 
 ### 9.6. Sorting collections
 The results of a collection query MAY be sorted based on property values.
-The property is determined by the value of the _$orderBy_ query parameter.
+The property is determined by the value of the _$order_by_ query parameter.
 
 The value of the _$orderBy_ parameter contains a comma-separated list of expressions used to sort the items.
 A special case of such an expression is a property path terminating on a primitive property.
